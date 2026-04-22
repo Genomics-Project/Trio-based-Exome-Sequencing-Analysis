@@ -15,7 +15,7 @@ This repository hosts a collaborative bioinformatic study focused on identifying
 │   ├── workflow_Giambelli.sh      # Script configured for investigator Giambelli
 │   └── workflow_LaCanna.sh    # Script configured for investigator La Canna
 │
-├── results/
+├── Results/
 │   ├── Giambelli_A/                 # Trios 1-5 assigned to Anna Giambelli
 │   │   ├── trio_1/
 │   │   │   ├── multiqc_report.html		# Quality & Alignment metrics
