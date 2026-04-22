@@ -33,7 +33,7 @@ This repository hosts a collaborative bioinformatic study focused on identifying
 └── samples.txt                  # Column order configuration
 ```
 ## 💻 Bioinformatic Pipeline
-Each full_workflow.sh script located in the root directory performs:
+Each script located in the full_workflow directory performs:
 
 - Quality Control via FastQC (v0.11.9).
 
