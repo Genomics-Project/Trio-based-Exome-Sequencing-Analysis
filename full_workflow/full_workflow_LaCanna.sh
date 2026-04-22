@@ -1,11 +1,11 @@
 echo "Workspace setup: starting..."
 
-# First of all, define the consistent IDs for my assigned trio (Static for all 5 trios).
+# First of all, define the consistent IDs for my assigned trio (static for all 5 trios).
 CHILD="HG00406"
 FATHER="HG00407"
 MOTHER="HG00408"
 
-# Then, let's define paths for shared resources and personal data
+# Then, define paths for shared resources and personal data
 COMMON_PATH="/home/BCG2026_exam"
 BASE_DATA_PATH="${COMMON_PATH}/BCG2026_LaCanna_D"
 
@@ -111,7 +111,7 @@ do
 		fi
 	fi
 
-	# Step 4E: let's use the retrieved info to filter the vcf file and obtain a file with the candidate variants
+	# Step 4E: use the retrieved info to filter the vcf file and obtain a file with the candidate variants
 	echo "Filtering variants according to model of inheritance ..."
 	bcftools view -R ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed trio_${n}.vcf.gz | bcftools view -S ../samples.txt | bcftools view -i "$FILTER" | bcftools filter -i 'QUAL>20' -Ov -o trio_${n}.cand.vcf
 	echo "Analysis complete for $DIR_NAME."
