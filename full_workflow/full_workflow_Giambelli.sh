@@ -1,10 +1,11 @@
 echo "Workspace setup: starting..."
 
+# First of all, define the consistent IDs for my assigned trio (static for all 5 trios)
 CHILD="HG00445"
 FATHER="HG00446"
 MOTHER="HG00447"
 
-# First of all, let's define paths for shared resources and personal data
+# Then define paths for shared resources and personal data
 COMMON_PATH="/home/BCG2026_exam"
 BASE_DATA_PATH="${COMMON_PATH}/BCG2026_Giambelli_A"
 
@@ -51,33 +52,33 @@ do
         cd ${DIR_NAME}
         
 	echo "Starting quality control of raw reads in $DIR_NAME..."
-	# Step 1:  Quality control
-        fastqc *.fq.gz
-        # Step 2 Paired-End Alignment (Bowtie2) and qualimap
+	# Step 1:  Quality control (FastQC); process both R1 and R2 for each sample
+    fastqc *.fq.gz
+    # Step 2 Paired-End Alignment (Bowtie2) and qualimap
 	# We use -1 and -2 for paired reads and pipe samtools for sorting
-        #Step 2A: Paired-End alignment of the child (Bowtie2)
-        echo "Aligning child reads from $DIR_NAME..."
-        bowtie2 -x ../chr20 -1 "child_R1.fq.gz" -2 "child_R2.fq.gz" -p 8 --rg-id "child" --rg "SM:child" | samtools view -Sb | samtools sort -o child.bam
+    #Step 2A: Paired-End alignment of the child (Bowtie2)
+    echo "Aligning child reads from $DIR_NAME..."
+    bowtie2 -x ../chr20 -1 "child_R1.fq.gz" -2 "child_R2.fq.gz" -p 8 --rg-id "child" --rg "SM:child" | samtools view -Sb | samtools sort -o child.bam
 
-        #Step 2B: Paired-End alignment of the father (Bowtie2)
-        echo "Aligning father reads from $DIR_NAME..."
-        bowtie2 -x ../chr20 -1 "father_R1.fq.gz" -2 "father_R2.fq.gz" -p 8 --rg-id "father" --rg "SM:father" | samtools view -Sb | samtools sort -o father.bam
+    #Step 2B: Paired-End alignment of the father (Bowtie2)
+    echo "Aligning father reads from $DIR_NAME..."
+    bowtie2 -x ../chr20 -1 "father_R1.fq.gz" -2 "father_R2.fq.gz" -p 8 --rg-id "father" --rg "SM:father" | samtools view -Sb | samtools sort -o father.bam
 
-        #Step 2C: Paired-End alignment of the mother (Bowtie2)
-        echo "Aligning mother reads from $DIR_NAME..."
-        bowtie2 -x ../chr20 -1 "mother_R1.fq.gz" -2 "mother_R2.fq.gz" -p 8 --rg-id "mother" --rg "SM:mother" | samtools view -Sb | samtools sort -o mother.bam
+    #Step 2C: Paired-End alignment of the mother (Bowtie2)
+    echo "Aligning mother reads from $DIR_NAME..."
+    bowtie2 -x ../chr20 -1 "mother_R1.fq.gz" -2 "mother_R2.fq.gz" -p 8 --rg-id "mother" --rg "SM:mother" | samtools view -Sb | samtools sort -o mother.bam
 	#Step 2D: indexing and qualimap
-        for role in child father mother; do
-                samtools index "${role}.bam"
-                qualimap bamqc -bam "${role}.bam" --gff ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed --outdir "${role}"
-        done
+    for role in child father mother; do
+        samtools index "${role}.bam"
+    	qualimap bamqc -bam "${role}.bam" --gff ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed --outdir "${role}"
+    done
 	
 	# Final Combined Report
 	multiqc . -o "multiqc_trio_${n}"
 
 	# Step 3: Multi-sample variant Calling
-        echo "Calling variants for $DIR_NAME..."
-        freebayes -f ../chr20.fa -m 20 -C 5 -Q 10 -q 10 --min-coverage 10 child.bam father.bam mother.bam > "trio_${n}.vcf"
+    echo "Calling variants for $DIR_NAME..."
+    freebayes -f ../chr20.fa -m 20 -C 5 -Q 10 -q 10 --min-coverage 10 child.bam father.bam mother.bam > "trio_${n}.vcf"
 	# Compressing the vcf file
 	bgzip trio_${n}.vcf
 	# Indexing the compressed vcf file
@@ -89,10 +90,9 @@ do
 	# Step 4A Standardize Trio ID for the search, Handling the inconsistences in our TSV file
 	TRIO_ID="trio_${n}"
 	if [ $n -eq 1 ]; then TRIO_ID="trio1"; fi
-
-        # Step 4B Extract the full line for that trio
-        # -w ensures we match the whole word only
-        TRIO_LINE=$(grep -w "$TRIO_ID" ../mode_inherithance.tsv)
+    # Step 4B Extract the full line for that trio
+    # -w ensures we match the whole word only
+    TRIO_LINE=$(grep -w "$TRIO_ID" ../mode_inherithance.tsv)
 
 	# Step 4C Use 'cut' to extract columns (assuming tab-separated)
 	# Column 3 is 'mode', Column 4 is 'notes'
@@ -116,7 +116,7 @@ do
 			FILTER='GT[0]=="RA" && GT[1]=="RA" && GT[2]=="RR"'
 		fi
 	fi
-
+	# Step 4E: Use the retrieved info to filter the vcf file and obtain a file with the candidate variants
 	echo "Filtering variants according to model of inheritance..."
 	bcftools view -R ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed trio_${n}.vcf.gz | bcftools view -S ../samples.txt | bcftools view -i "$FILTER" | bcftools filter -i 'QUAL>20' -Ov -o trio_${n}.cand.vcf
 
