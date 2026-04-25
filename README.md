@@ -22,7 +22,7 @@ This repository hosts a collaborative bioinformatic study focused on identifying
     │   │   ├── trio_1.cand.vcf        # Raw candidate variants that follow the inspected inheritance pattern
     │   │   ├── trio_1.vep_filtered.vcf     # Results of the command-line annotation: variants with high impact or clinical significance
     │   │   ├── [vep_web_results.png]    # Screenshot: Web VEP Table if subject is non-healthy
-    │   │   └── [genome_browser.png]     # Screenshot: visualization of IGV Coverage & Variant tracks if subject is non-healthy
+    │   │   └── [genome_browser.png]     # Screenshot: visualization of Coverage & Variant tracks in the UCSC Genome Browser if subject is non-healthy
     │   └── ...
     └── LaCanna_D/               # Trios 1-5 assigned to Davide La Canna
         ├── trio_1/
