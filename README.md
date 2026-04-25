@@ -85,9 +85,13 @@ filter_vep -i trio_n.vep_annotated.vcf -o trio_n.vep_filtered.vcf \
     --filter "IMPACT is HIGH and (not MAX_AF or MAX_AF < 0.0001)"
 ```
 #### Coverage Track Generation:
-To generate the coverage data used for Genome Browser visualization tracks, the following command is implemented:
+To generate the coverage data used for Genome Browser visualization tracks, the following commands are implemented inside each trio folder:
 ```Bash
+bedtools genomecov -ibam child.bam -bg -trackline -trackopts 'name="child"' -max 100 > childCov.bg
 
+bedtools genomecov -ibam father.bam -bg -trackline -trackopts 'name="father"' -max 100 > fatherCov.bg
+
+bedtools genomecov -ibam mother.bam -bg -trackline -trackopts 'name="mother"' -max 100 > motherCov.bg
 ```
 ## 📊 Results Visualization
 - MultiQC: To view HTML reports, please download the repository and open the files in a local web browser (GitHub does not render HTML files directly).
