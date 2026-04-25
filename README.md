@@ -21,7 +21,6 @@ This repository hosts a collaborative bioinformatic study focused on identifying
     │   │   ├── multiqc_report.html		# Quality & Alignment metrics
     │   │   ├── trio_1.cand.vcf        # Raw candidate variants that follow the inspected inheritance pattern
     │   │   ├── trio_1.vep_filtered.vcf     # Results of the command-line annotation: variants with high impact or clinical significance
-    │   │   ├── [vep_web_results.png]    # Screenshot: Web VEP Table if subject is non-healthy
     │   │   └── [genome_browser.png]     # Screenshot: visualization of Coverage & Variant tracks in the UCSC Genome Browser if subject is non-healthy
     │   └── ...
     └── LaCanna_D/               # Trios 1-5 assigned to Davide La Canna
@@ -96,7 +95,7 @@ bedtools genomecov -ibam mother.bam -bg -trackline -trackopts 'name="mother"' -m
 ## 📊 Results Visualization
 - MultiQC: To view HTML reports, please download the repository and open the files in a local web browser (GitHub does not render HTML files directly).
 
-- Healthy Subjects: For healthy subjects, folders contain QC and VCF files to demonstrate data integrity, though VEP/Genome Browser screenshots are omitted.
+- Healthy Subjects: For healthy subjects, folders contain QC and VCF files to demonstrate data integrity, though Genome Browser screenshots are omitted since no variant with clinical significance was found.
 
 - Variant Annotation Discrepancies: In certain instances (notably trio_4 assigned to investigator La Canna), the vep_filtered.vcf generated via command-line may not display the candidate variant despite its presence in the web interface. This is typically due to differences in indel normalization or database versions between local caches and the online tool. In these cases, the vep_web_results.png and genome_browser.png are provided as primary evidence to validate the pathogenicity and coverage of the identified mutation.
 
