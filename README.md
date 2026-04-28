@@ -32,7 +32,7 @@ This repository hosts a collaborative bioinformatic study focused on identifying
 To ensure accuracy in the "Materials and Methods" section of the associated report, the following parameters were utilized:
 - Reference Genome: GRCh38 (hg38), restricted to Chromosome 20.
 
-- Target Regions: chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed. This BED file defines the exonic targets of the Illumina capture kit; in this pipeline, it is used during the post-calling filtering stage to restrict analysis to high-confidence target regions and in Mapping Quality Control to facilitate coverage calculations.
+- Target Regions: chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed. This BED file defines the exonic targets of the Illumina capture kit. In this pipeline, it is used during the post-calling filtering stage to restrict analysis to high-confidence target regions and to facilitate on-target coverage calculations within Qualimap.
 
 ## 💻 Bioinformatic Pipeline
 Each script located in the full_workflow directory automates:
