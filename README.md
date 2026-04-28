@@ -21,7 +21,7 @@ This repository hosts a collaborative bioinformatic study focused on identifying
     │   │   ├── multiqc_report.html		# Quality & Alignment metrics
     │   │   ├── trio_1.cand.vcf        # Raw candidate variants that follow the inspected inheritance pattern
     │   │   ├── trio_1.vep_filtered.vcf     # Results of the command-line annotation: variants with high impact or clinical significance
-    │   │   └── [genome_browser.png]     # Screenshot: visualization of Coverage & Variant tracks in the UCSC Genome Browser if subject is non-healthy
+    │   │   └── [genome_browser.png]     # UCSC screenshot: visualization of Coverage & Variant tracks in the UCSC Genome Browser if subject is non-healthy
     │   └── ...
     ├── LaCanna_D/               # Trios 1-5 assigned to Davide La Canna
     │   ├── trio_1/
