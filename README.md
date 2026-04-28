@@ -26,7 +26,7 @@ This repository hosts a collaborative bioinformatic study focused on identifying
     ├── LaCanna_D/               # Trios 1-5 assigned to Davide La Canna
     │   ├── trio_1/
     │   └── ...
-    └── Results_tab.tsv
+    └── Results_tab.tsv          # Summary of all 10 diagnoses  
 ```
 ## 💻 Bioinformatic Pipeline
 Each script located in the full_workflow directory performs:
