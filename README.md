@@ -23,9 +23,10 @@ This repository hosts a collaborative bioinformatic study focused on identifying
     │   │   ├── trio_1.vep_filtered.vcf     # Results of the command-line annotation: variants with high impact or clinical significance
     │   │   └── [genome_browser.png]     # Screenshot: visualization of Coverage & Variant tracks in the UCSC Genome Browser if subject is non-healthy
     │   └── ...
-    └── LaCanna_D/               # Trios 1-5 assigned to Davide La Canna
-        ├── trio_1/
-        └── ...
+    ├── LaCanna_D/               # Trios 1-5 assigned to Davide La Canna
+    │   ├── trio_1/
+    │   └── ...
+    └── Results_tab.tsv
 ```
 ## 💻 Bioinformatic Pipeline
 Each script located in the full_workflow directory performs:
