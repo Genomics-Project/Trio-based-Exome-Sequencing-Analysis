@@ -29,7 +29,7 @@ This repository hosts a collaborative bioinformatic study focused on identifying
     └── Results_tab.tsv          # Summary of all 10 diagnoses  
 ```
 ## 💻 Bioinformatic Pipeline
-Each script located in the full_workflow directory performs:
+Each script located in the full_workflow directory automates:
 
 - Quality Control via FastQC (v0.11.9).
 
@@ -41,29 +41,29 @@ Each script located in the full_workflow directory performs:
 
 - Variant Calling via FreeBayes (v1.3.2).
 
-- Mendelian Filtering via BCFtools (v1.10.2).
+- Mendelian Inheritance Filtering via BCFtools (v1.10.2).
 
 ## 🌐 Data Access & Environment
-The analysis was conducted on the BCG2026 Shared Server (leon). Due to the size of the high-depth sequencing files and privacy considerations, the raw genomic data is hosted within a restricted environment and is not included in this repository.
+The analysis was conducted on the BCG2026 Shared Server (leon). Due to the size of the high-depth sequencing files and privacy considerations, raw genomic data is hosted within a restricted environment and is not included in this repository.
 ### Prerequisites for Reproduction:
 To successfully execute each full_workflow script:
 
-- The user must have access to this server environment;
+- The user must have authorized access to the 'leon' server;
 
-- Server Path: the script expects a global variable COMMON_PATH set to /home/BCG2026_exam, where shared reference files (hg38 chr20) and indexes are stored.
+- Path: the script expects a global variable COMMON_PATH set to /home/BCG2026_exam, where shared reference files (hg38 chr20) and indexes are stored.
 
 ## 🚀 Usage Instructions
 To ensure the pipeline correctly identifies and processes your specific trio data, follow these configuration steps:
 ### 1. Configure Script Variables
 Open the full_workflow shell script in a text editor and update the following variables at the top of the script:
 
-- BASE_DATA_PATH: modify this according to your username (i.e.: BASE_DATA_PATH="${COMMON_PATH}/BCG2026_Surname_N")
+- BASE_DATA_PATH: update with your investigator directory (i.e.: BASE_DATA_PATH="${COMMON_PATH}/BCG2026_Surname_N")
 
 - Sample IDs: update the CHILD, FATHER and MOTHER variables with your assigned Illumina IDs (e.g., HG00406, HG00407, HG00408). This is critical for reproducibility, as the script uses these IDs to locate and link your specific FASTQ files from the server.
 ### 2. Data Handling
-- For proper data handling, make sure that your BASE_DATA_PATH directory contains the 5 trio folders (e.g., trio_1/ through trio_5/). 
+- For proper data handling, make sure that your BASE_DATA_PATH directory contains the 5 trio folders (trio_1/ through trio_5/). 
 
-- File Naming: each folder must contain 6 zipped FASTQ files named consistently using the assigned Illumina IDs (e.g., ${CHILD}.targets_R1.fq.gz).
+- File Naming: each trio folder must contain 6 zipped FASTQ files named consistently using the assigned Illumina IDs (e.g., ${CHILD}.targets_R1.fq.gz).
 
 - Metadata: the mode_inherithance.tsv file must be present in your BASE_DATA_PATH, as the script parses it dynamically to apply Mendelian filters.
 ### 3. Execution
@@ -72,7 +72,7 @@ Once configured, provide execution permissions and launch the pipeline:
 chmod +x full_workflow.sh
 ./full_workflow.sh
 ```
-#### Functional Annotation and Filtering:
+#### Functional Annotation and Clinical Filtering:
 After obtaining the candidate VCFs, it's possible to move inside each trio_n folder (with n = 1 ... 5) that has been created and the following commands can be used for local annotation and clinical filtering:
 ```Bash
 # 1. Functional Annotation with VEP
@@ -96,7 +96,6 @@ bedtools genomecov -ibam mother.bam -bg -trackline -trackopts 'name="mother"' -m
 ## 📊 Results Visualization
 - MultiQC: To view HTML reports, please download the repository and open the files in a local web browser (GitHub does not render HTML files directly).
 
-- Healthy Subjects: For healthy subjects, folders contain QC and VCF files to demonstrate data integrity, though Genome Browser screenshots are omitted since no variant with clinical significance was found.
+- Healthy Subjects: For healthy subjects, folders contain QC and VCF files to demonstrate data integrity, though Genome Browser screenshots are omitted as no pathogenic variants were identified.
 
-- Variant Annotation Discrepancies: In certain instances (notably trio_4 assigned to investigator La Canna), the vep_filtered.vcf generated via command-line may not display the candidate variant despite its presence in the web interface. This is typically due to differences in indel normalization or database versions between local caches and the online tool. In these cases, the vep_web_results.png and genome_browser.png are provided as primary evidence to validate the pathogenicity and coverage of the identified mutation.
-
+- Variant Annotation Discrepancies: In certain instances (notably trio_4 assigned to investigator La Canna), the command-line VEP may omit variants found via the online interface due to differences in indel normalization or database versions between local caches and the web tool. In these cases, the genome_browser.png serves as the primary evidence to validate the existence, inheritance and coverage of the mutation.
