@@ -1,0 +1,12 @@
+Investigator	Case_n	Mode_of_inheritance	Mutated_Gene	Variant_location	Consequence	REF/ALT	Associated_Phenotype
+Giambelli_A	trio_1	AR	N/A	N/A	N/A	N/A	Healthy
+Giambelli_A	trio_2	AD_inherited_father_affected	ASXL1	20:32433307-32433307	stop_gained	C/G	Bohring-Opitz_syndrome	
+Giambelli_A	trio_3	AD_de_novo	CYP24A1	20:54157502-54157502	stop_gained	C/T	Hypercalcemia,_infantile,_1
+Giambelli_A	trio_4	AR	SLC52A3	20:765290-765295	frameshift_variant	-/CGGA	Brown-Vialetto-van_Laere_syndrome_1
+Giambelli_A	trio_5	AR	DNMT3B	20:32799280-32799280	stop_gained	C/T	Centromeric_instability_of_chromosomes_1,9_and_16_and_immunodeficiency
+
+LaCanna_D	trio_1	AR	N/A	N/A	N/A	N/A	Healthy
+LaCanna_D	trio_2	AD_inherited_mother_affected	SALL4	20:51790058-51790063	frameshift_variant	-/T	Duane-radial_ray_syndrome
+LaCanna_D	trio_3	AD_de_novo	ADNP	20:50892263-50892269	frameshift_variant	-/T	ADNP-related_multiple_congenital_anomalies_-_intellectual_disability_-_autism_spectrum_disorder
+LaCanna_D	trio_4	AR	CTSA	20:45891755-45891757	frameshift_variant	A/-	Combined_deficiency_of_sialidase_AND_beta_galactosidase
+LaCanna_D	trio_5	AR	GSS	20:34931342-34931351	frameshift_variant	CT/-	Glutathione_synthetase_deficiency_with_5-oxoprolinuria
