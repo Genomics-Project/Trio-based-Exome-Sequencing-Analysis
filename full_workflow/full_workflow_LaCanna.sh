@@ -54,13 +54,13 @@ do
 	# We use -1 and -2 for paired reads and pipe to samtools for sorting
 	# Step 2A: Align child
 	echo "Aligning child reads from $DIR_NAME  ..."
-	bowtie2 -x ../chr20 -1 "child_R1.fq.gz" -2 "child_R2.fq.gz" --rg-id "child" --rg "SM:child" -p 8 | samtools view -Sb - | samtools sort -o child.bam
+	bowtie2 -x ../chr20 -1 "child_R1.fq.gz" -2 "child_R2.fq.gz" --rg-id "child" --rg "SM:child" -p 8 | samtools view -Sb | samtools sort -o child.bam
 	# Step 2B: Align father
 	echo "Aligning father reads from $DIR_NAME  ..."
-	bowtie2 -x ../chr20 -1 "father_R1.fq.gz" -2 "father_R2.fq.gz" --rg-id "father" --rg "SM:father" -p 8 | samtools view -Sb - | samtools sort -o father.bam
+	bowtie2 -x ../chr20 -1 "father_R1.fq.gz" -2 "father_R2.fq.gz" --rg-id "father" --rg "SM:father" -p 8 | samtools view -Sb | samtools sort -o father.bam
 	# Step 2C: Align mother
 	echo "Aligning mother reads from $DIR_NAME  ..."
-	bowtie2 -x ../chr20 -1 "mother_R1.fq.gz" -2 "mother_R2.fq.gz" --rg-id "mother" --rg "SM:mother" -p 8 | samtools view -Sb - | samtools sort -o mother.bam
+	bowtie2 -x ../chr20 -1 "mother_R1.fq.gz" -2 "mother_R2.fq.gz" --rg-id "mother" --rg "SM:mother" -p 8 | samtools view -Sb | samtools sort -o mother.bam
 
 	# Step 2D: Indexing and Qualimap (using the new generic names)
 	for role in child father mother; do
