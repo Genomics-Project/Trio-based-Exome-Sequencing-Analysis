@@ -119,7 +119,7 @@ do
 	fi
 	# Step 4E: Use the retrieved info to filter the vcf file and obtain a file with the candidate variants
 	echo "Filtering variants according to model of inheritance..."
-	bcftools view -R ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed trio_${n}.vcf.gz | bcftools view -S ../samples.txt | bcftools view -i "$FILTER" | bcftools filter -i 'QUAL>20' -Ov -o trio_${n}.cand.vcf
+	bcftools view -R "$BED_FILE" trio_${n}.vcf.gz | bcftools view -S ../samples.txt | bcftools view -i "$FILTER" | bcftools filter -i 'QUAL>20' -Ov -o trio_${n}.cand.vcf
 
 	echo "Analysis complete for $DIR_NAME"
 
