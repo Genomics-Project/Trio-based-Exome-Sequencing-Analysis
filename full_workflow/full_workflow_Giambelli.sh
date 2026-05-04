@@ -8,6 +8,7 @@ MOTHER="HG00447"
 # Then define paths for shared resources and personal data
 COMMON_PATH="/home/BCG2026_exam"
 BASE_DATA_PATH="${COMMON_PATH}/BCG2026_Giambelli_A"
+BED_FILE="../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed"
 
 echo "Linking common reference and target files..."
 
@@ -70,7 +71,7 @@ do
 	#Step 2D: indexing and qualimap
     for role in child father mother; do
         samtools index "${role}.bam"
-    	qualimap bamqc -bam "${role}.bam" --gff ../chr20_ILMN_Exome_2.0_Plus_Panel.hg38_padded.bed --outdir "${role}"
+    	qualimap bamqc -bam "${role}.bam" --gff "$BED_FILE" --outdir "${role}"
     done
 	
 	# Final Combined Report
